@@ -1,6 +1,7 @@
 package entidades;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import entidades.enums.WorkerLevel;
@@ -68,11 +69,28 @@ public class Worker {
 		contratos.add(contrato);
 	}
 	
-	public void removeContrato(HourContract contrato)
-	{
+	public void removeContrato(HourContract contrato){
 		contratos.remove(contrato);
 	}
 	
+	public double pagamento(int ano, int mes){
+		
+		double sum = baseSalary;
+		Calendar cal = Calendar.getInstance();
+		
+		for(HourContract c : contratos) {
+			
+			cal.setTime(c.getDate());
+			int c_Year = cal.get(Calendar.YEAR);
+			int c_Month = cal.get(Calendar.MONTH);
+			
+			if(c_Year == ano && c_Month == mes) {
+				sum += c.valorTotal();
+			}
+		}
+		
+		return sum;
+	}
 	
 	
 }
